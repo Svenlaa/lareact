@@ -25,8 +25,7 @@ export default function TodosIndex({ todos }: { todos: Todo[] }) {
     return (
         <AuthenticatedLayout header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Todos</h2>}>
             <Head title="Todo" />
-
-            <div className="pt-12 pb-6">
+            <div className="pb-6 pt-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <form onSubmit={submit} className="p-6">
@@ -84,7 +83,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
 
     return (
         <div key={todo.id} className="border-b border-gray-100">
-            <div className="flex justify-between items-center p-6">
+            <div className="flex items-center justify-between p-6">
                 <div className="flex items-center">
                     <div className={clsx('text-gray-900', checked && 'line-through')}>{todo.title}</div>
                 </div>
