@@ -1,11 +1,12 @@
 import Checkbox from '@/Components/Checkbox';
+import DangerButton from '@/Components/DangerButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Todo } from '@/types/model';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import clsx from 'clsx/lite';
 import { FormEventHandler, useState } from 'react';
 
@@ -64,31 +65,26 @@ export default function TodosIndex({ todos }: { todos: Todo[] }) {
 }
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
-    const props = usePage().props;
-    const [checked, setChecked] = useState(todo.completed_at);
-
     const toggleCheckbox: FormEventHandler<HTMLInputElement> = (e) => {
-        setChecked(e.currentTarget.checked);
-        fetch(route('todos.complete', { id: todo.id }), {
-            body: JSON.stringify({
-                _token: props.csrf_token,
-                is_checked: checked,
-            }),
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        router.post(route('todos.complete', { id: todo.id }), {
+            is_checked: e.currentTarget.checked,
         });
+    };
+
+    const deleteItem = (todo: Todo) => () => {
+        if (!confirm('Are you sure you want to delete this todo item?')) return;
+        router.delete(route('todos.destroy', { id: todo.id }));
     };
 
     return (
         <div key={todo.id} className="border-b border-gray-100">
             <div className="flex items-center justify-between p-6">
                 <div className="flex items-center">
-                    <div className={clsx('text-gray-900', checked && 'line-through')}>{todo.title}</div>
+                    <Checkbox defaultChecked={todo.completed_at} onInput={toggleCheckbox} className="mr-4" />
+                    <div className={clsx('text-gray-900', todo.completed_at && 'line-through')}>{todo.title}</div>
                 </div>
                 <div className="flex items-center">
-                    <Checkbox defaultChecked={todo.completed_at} onInput={toggleCheckbox} />
+                    <DangerButton onClick={deleteItem(todo)}>Delete Item</DangerButton>
                 </div>
             </div>
         </div>
