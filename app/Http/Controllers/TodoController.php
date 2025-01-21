@@ -37,8 +37,11 @@ class TodoController extends Controller
         return;
     }
 
-    public function destroy(Todo $todo)
+    public function destroy(Todo $todo, Request $request)
     {
+        if ($todo->user_id !== $request->user()->id) {
+            abort(403);
+        }
         $todo->delete();
         return redirect()->back()->with([
             'message' => "Todo deleted",
