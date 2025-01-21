@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_badge_enabled',
     ];
 
     /**
@@ -50,5 +51,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function unlockBadge(): void
+    {
+        if ($this->badge_unlocked_at !== null) {
+            return;
+        }
+        $this->badge_unlocked_at = now();
+        $this->save();
+    }
+
+    public function enableBadge(bool $setTo = true): void
+    {
+        if ($this->badge_unlocked_at === null) {
+            return;
+        }
+        $this->is_badge_enabled = $setTo;
+        $this->save();
     }
 }

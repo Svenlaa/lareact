@@ -12,6 +12,8 @@ export type User = {
     name: string;
     email: string;
     email_verified_at?: string;
+    badge_unlocked_at?: any;
+    is_badge_enabled: any;
     created_at?: string;
     updated_at?: string;
     todos?: Todo[];

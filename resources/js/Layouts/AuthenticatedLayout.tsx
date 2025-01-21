@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
+import { IconRiVerifiedBadgeFill } from '@/Components/Icons/IconRiVerifiedBadgeFill';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
@@ -42,6 +43,10 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
                                                 className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                                             >
                                                 {user.name}
+
+                                                {user.is_badge_enabled ? (
+                                                    <IconRiVerifiedBadgeFill color="green" className="ml-1" />
+                                                ) : null}
 
                                                 <svg
                                                     className="-me-0.5 ms-2 h-4 w-4"

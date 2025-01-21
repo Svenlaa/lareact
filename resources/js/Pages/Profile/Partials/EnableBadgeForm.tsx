@@ -1,4 +1,3 @@
-import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -92,21 +91,6 @@ export default function UpdateProfileInformation({
                                 A new verification link has been sent to your email address.
                             </div>
                         )}
-                    </div>
-                )}
-
-                {user.badge_unlocked_at && (
-                    <div>
-                        <InputLabel htmlFor="is_badge_enabled" value="Enable Badge" />
-
-                        <Checkbox
-                            id="is_badge_enabled"
-                            className="mt-1 h-[1em] w-[1em]"
-                            defaultChecked={data.is_badge_enabled}
-                            onChange={(e) => setData('is_badge_enabled', e.target.checked)}
-                        />
-
-                        <InputError className="mt-2" message={errors.is_badge_enabled} />
                     </div>
                 )}
 
