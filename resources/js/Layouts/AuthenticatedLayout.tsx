@@ -44,9 +44,9 @@ export default function Authenticated({ header, children }: PropsWithChildren<{ 
                                             >
                                                 {user.name}
 
-                                                {user.is_badge_enabled ? (
+                                                {!!user.is_badge_enabled && (
                                                     <IconRiVerifiedBadgeFill color="green" className="ml-1" />
-                                                ) : null}
+                                                )}
 
                                                 <svg
                                                     className="-me-0.5 ms-2 h-4 w-4"
