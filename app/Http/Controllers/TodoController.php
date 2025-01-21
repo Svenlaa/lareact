@@ -7,20 +7,18 @@ use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $todos = Todo::query()->orderBy('completed_at')->get();
+        $todos = Todo::query()
+            ->orderByRaw('completed_at IS NOT NULL')
+            ->orderBy('completed_at')
+            ->orderBy('created_at')
+            ->get();
         return inertia('Todos/Index', [
             'todos' => $todos,
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
