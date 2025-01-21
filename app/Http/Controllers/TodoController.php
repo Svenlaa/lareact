@@ -12,18 +12,10 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
+        $todos = Todo::query()->orderBy('completed_at')->get();
         return inertia('Todos/Index', [
             'todos' => $todos,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -46,36 +38,8 @@ class TodoController extends Controller
         $todo->toggleComplete();
         return;
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Todo $todo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
     }
 }
