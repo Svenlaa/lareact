@@ -36,6 +36,7 @@ class TodoController extends Controller
         $todo->toggleComplete();
         return;
     }
+
     public function destroy(Todo $todo)
     {
         $todo->delete();
