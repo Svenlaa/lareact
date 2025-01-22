@@ -1,5 +1,7 @@
 import Checkbox from '@/Components/Checkbox';
 import DangerButton from '@/Components/DangerButton';
+import Dropdown from '@/Components/Dropdown';
+import { IconRiFilterLine } from '@/Components/Icons/IconRiFilterLine';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -54,6 +56,32 @@ export default function TodosIndex({ todos }: { todos: Todo[] }) {
             <div className="py-6">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                        <div className="flex w-full flex-row justify-between p-2 pb-0">
+                            <h3 className="px-3 py-2 text-center text-lg font-bold">Todos</h3>
+                            <div>
+                                <Dropdown>
+                                    <Dropdown.Trigger>
+                                        <span className="rounded-md">
+                                            <button
+                                                type="button"
+                                                className="inline-flex flex-row gap-2 rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
+                                            >
+                                                <span className="my-auto">Sort</span>
+                                                <IconRiFilterLine className="text-center" />
+                                            </button>
+                                        </span>
+                                    </Dropdown.Trigger>
+                                    <Dropdown.Content>
+                                        <Dropdown.Link href="?sort">Default</Dropdown.Link>
+                                        <Dropdown.Link href="?sort=created_at:desc">New - Old</Dropdown.Link>
+                                        <Dropdown.Link href="?sort=created_at:asc">Old - New</Dropdown.Link>
+                                        <Dropdown.Link href="?sort=title:asc">A - Z</Dropdown.Link>
+                                        <Dropdown.Link href="?sort=title:desc">Z - A</Dropdown.Link>
+                                    </Dropdown.Content>
+                                </Dropdown>
+                            </div>
+                        </div>
+
                         {todos.map((todo) => (
                             <TodoItem todo={todo} />
                         ))}
